@@ -1,0 +1,27 @@
+{
+  "name": "meme-market",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Noah Liguori-Bills",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "p5": "^1.1.9",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noahlb123/Meme-Market.git"
+  },
+  "bugs": {
+    "url": "https://github.com/noahlb123/Meme-Market/issues"
+  },
+  "homepage": "https://github.com/noahlb123/Meme-Market#readme",
+  "description": ""
+}
