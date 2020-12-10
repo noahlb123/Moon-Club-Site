@@ -49,7 +49,7 @@ function updateDate() {
         nextMoon.setDate(nextMoon.getDate() - 1)
       }
       //chage the date in index.html
-      fs.writeFileSync('Public/index.js', 'document.getElementById("date").innerHTML = "' + reformatDate(nextMoon) + '";');
+      fs.writeFileSync('Public/moon.js', 'document.getElementById("date").innerHTML = "' + reformatDate(nextMoon) + '";');
     })
 }
 
