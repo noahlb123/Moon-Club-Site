@@ -48,18 +48,8 @@ function updateDate() {
       if (time == 'AM' && parseInt(rawText[5].substr(0, 2)) < 10) {
         nextMoon.setDate(nextMoon.getDate() - 1)
       }
-
-      //write date string into date.moon
-      fs.writeFileSync('Public/date.moon', reformatDate(nextMoon), function (err) {
-        if (err) throw err;
-        console.log('date updated');
-      });
-
       //chage the date in index.html
-      var string = fs.readFileSync('Public/index.html', 'utf8');
-      index = string.search('id="date">')
-      string[index] = 'X';
-      console.log(string);
+      fs.writeFileSync('Public/index.js', 'document.getElementById("date").innerHTML = "' + reformatDate(nextMoon) + '";');
     })
 }
 
