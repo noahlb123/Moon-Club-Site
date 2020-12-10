@@ -8,9 +8,13 @@
   "author": "Noah Liguori-Bills",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.0",
+    "cheerio": "^1.0.0-rc.3",
     "express": "^4.17.1",
+    "fs": "0.0.1-security",
     "p5": "^1.1.9",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.3.0",
+    "string": "^3.3.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.5"
