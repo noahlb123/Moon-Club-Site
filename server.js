@@ -43,13 +43,21 @@ function updateDate() {
         day = '0' + day;
       }
       const year = rawText[3].replace(',', '');
-      var nextMoon = new Date(month + ' ' + day + ' ' + year + ' ' + '00:00:00');
       const time = rawText[6];
-      if (time == 'AM' && parseInt(rawText[5].substr(0, 2)) < 10) {
-        nextMoon.setDate(nextMoon.getDate() - 1)
+
+      //error handeling
+      try {
+        var nextMoon = new Date(month + ' ' + day + ' ' + year + ' ' + '00:00:00');
+        if (time == 'AM' && parseInt(rawText[5].substr(0, 2)) < 10) {
+          nextMoon.setDate(nextMoon.getDate() - 1)
+        }
+        //chage the date in index.html
+        fs.writeFileSync('Public/moon.js', 'document.getElementById("date").innerHTML = "' + reformatDate(nextMoon) + '";');
       }
-      //chage the date in index.html
-      fs.writeFileSync('Public/moon.js', 'document.getElementById("date").innerHTML = "' + reformatDate(nextMoon) + '";');
+      catch(err) {
+        console.log("check farmersalmanac.com/full-moon-dates-and-times");
+        fs.writeFileSync('Public/moon.js', 'document.getElementById("date").innerHTML = "' + "?? ?? ??" + '";');
+      }
     })
 }
 
