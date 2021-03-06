@@ -64,7 +64,7 @@ function updateDate() {
 
 // running the server
 var app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 80;
 var server = app.listen(port, listening);
 
 function listening(){
