@@ -1,4 +1,6 @@
 var express = require('express');
+const path = require('path');
+const exphbs = require("express-handlebars");
 var axios = require('axios');
 var cheerio = require('cheerio');
 var S = require('string');
@@ -62,16 +64,29 @@ function updateDate() {
 }
 
 
-// running the server
+//server
 var app = express();
-const port = process.env.PORT || 4000;
-var server = app.listen(port, listening);
 
-function listening(){
+//view engine setup
+const hbs = exphbs.create({
+  extname: "hbs",
+  defaultLayout: "main"
+});
+
+app.engine("hbs", hbs.engine);
+app.set("view engine", "hbs");
+
+//render index
+app.get("/", (req, res) => {
+  res.render("index");
+});
+
+//declare public folder
+app.use(express.static(path.join(__dirname, "public")));
+
+//listen
+const port = process.env.PORT || 4002;
+
+app.listen(port, ()=> {
   console.log('listening at port ' + port + '...');
-}
-
-app.use(function (req, res, next) {
-  updateDate();
-  next();
-}, express.static('Public'));
+});

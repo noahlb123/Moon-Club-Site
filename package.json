@@ -11,8 +11,10 @@
     "axios": "^0.21.0",
     "cheerio": "^1.0.0-rc.3",
     "express": "^4.17.1",
+    "express-handlebars": "^5.3.3",
     "fs": "0.0.1-security",
     "p5": "^1.1.9",
+    "path": "^0.12.7",
     "socket.io": "^2.3.0",
     "string": "^3.3.3"
   },
