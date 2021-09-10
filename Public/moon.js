@@ -1,1 +1,0 @@
-document.getElementById("date").innerHTML = "09 20 21";
