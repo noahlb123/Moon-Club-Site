@@ -6,9 +6,7 @@ var cheerio = require('cheerio');
 var S = require('string');
 var fs = require('fs');
 
-var date = "?? ?? ??";
-
-//a function to reformat a date object into a string
+//reformat date object into a string
 function reformatDate(date) {
   var year = date.getYear().toString();
   year = year.substring(1, 3);
@@ -27,8 +25,21 @@ function reformatDate(date) {
 
 url = 'https://www.farmersalmanac.com/full-moon-dates-and-times';
 
-//scraping the site
-function updateDate() {
+//server
+var app = express();
+
+//view engine setup
+const hbs = exphbs.create({
+  extname: "hbs",
+  defaultLayout: "main"
+});
+
+app.engine("hbs", hbs.engine);
+app.set("view engine", "hbs");
+
+//render index
+app.get("/", (req, res) => {
+  //get and process date
   axios(url)
     .then(response => {
 
@@ -53,34 +64,13 @@ function updateDate() {
         if (time == 'AM' && parseInt(rawText[5].substr(0, 2)) < 10) {
           nextMoon.setDate(nextMoon.getDate() - 1)
         }
-        //chage the date in index.html
-        date = reformatDate(nextMoon);
+        res.render("index", {date: reformatDate(nextMoon)});
       }
       catch(err) {
-        console.log("check farmersalmanac.com/full-moon-dates-and-times");
-        date = "?? ?? ??";
+        console.log("check farmersalmanac.com/full-moon-dates-and-times, format changed");
+        res.render("index", {date: "?? ?? ??"});
       }
     })
-}
-
-
-//server
-var app = express();
-
-//view engine setup
-const hbs = exphbs.create({
-  extname: "hbs",
-  defaultLayout: "main"
-});
-
-app.engine("hbs", hbs.engine);
-app.set("view engine", "hbs");
-
-//render index
-app.get("/", (req, res) => {
-  updateDate();
-  console.log(date);
-  res.render("index", {date: date});
 });
 
 //declare public folder
