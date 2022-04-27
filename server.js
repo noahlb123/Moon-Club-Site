@@ -54,11 +54,19 @@ app.get("/", (req, res) => {
         //reformat html text into date object
         const month = rawText[1];
         var day = rawText[2];
+        day = day.replace(",", "");
         if (day.length == 1) {
           day = '0' + day;
         }
-        const year = rawText[3].replace(',', '');
         const time = rawText[6];
+
+        var dateNow = new Date();
+        if (dateNow.getMonth() < parseInt(month)) {
+          year = dateNow.getYear() + 1;
+        } else {
+          year = dateNow.getYear();
+        }
+        year = year - 100 + 2000;
 
         var nextMoon = new Date(month + ' ' + day + ' ' + year + ' ' + '00:00:00');
         if (time == 'AM' && parseInt(rawText[5].substr(0, 2)) < 10) {
@@ -68,6 +76,7 @@ app.get("/", (req, res) => {
       }
       catch(err) {
         console.log("check farmersalmanac.com/full-moon-dates-and-times, format changed");
+        console.log(err);
         res.render("index", {date: "?? ?? ??"});
       }
     })
